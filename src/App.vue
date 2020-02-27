@@ -6,7 +6,8 @@
     <beer-detail :beer='selectedBeer'></beer-detail>
     <br>
     <h1>Favourite beers</h1>
-    <div v-for="beer in favouriteBeers">{{beer.name}}</div>
+    <div v-for="(beer, index) in favouriteBeers">{{beer.name}}
+      <button @click="removeFavourite(index)">Remove from favourites</button></div>
   </div>
   </div>
 </template>
@@ -43,8 +44,14 @@ export default {
   components: {
     "beers-list": BeersList,
     "beer-detail": BeerDetail
-  }
+  },
+  methods: {
+    removeFavourite: function(index) {
+      this.favouriteBeers.splice(index, 1)
+    }
 }
+}
+
 </script>
 
 <style>
