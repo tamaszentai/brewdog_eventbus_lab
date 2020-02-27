@@ -28,9 +28,21 @@ export default {
     };
   },
   mounted(){
-    fetch('https://api.punkapi.com/v2/beers')
+    fetch('https://api.punkapi.com/v2/beers?page=1&per_page=80')
     .then(res => res.json())
-    .then(beers => this.beers = beers)
+    .then(beers1 => this.beers = [...this.beers, ...beers1])
+    fetch('https://api.punkapi.com/v2/beers?page=2&per_page=80')
+    .then(res => res.json())
+    .then(beers2 => this.beers = [...this.beers, ...beers2])
+    fetch('https://api.punkapi.com/v2/beers?page=3&per_page=80')
+    .then(res => res.json())
+    .then(beers3 => this.beers = [...this.beers, ...beers3])
+    fetch('https://api.punkapi.com/v2/beers?page=4&per_page=80')
+    .then(res => res.json())
+    .then(beers4 => this.beers = [...this.beers, ...beers4])
+    fetch('https://api.punkapi.com/v2/beers?page=5&per_page=80')
+    .then(res => res.json())
+    .then(beers5 => this.beers = [...this.beers, ...beers5])
 
     eventBus.$on('beer-selected', (beer) => {
       this.selectedBeer = beer;
