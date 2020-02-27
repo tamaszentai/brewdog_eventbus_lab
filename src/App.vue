@@ -4,6 +4,9 @@
     <div>
     <beers-list :beers='beers'></beers-list>
     <beer-detail :beer='selectedBeer'></beer-detail>
+    <br>
+    <h1>Favourite beers</h1>
+    <div v-for="beer in favouriteBeers">{{beer.name}}</div>
   </div>
   </div>
 </template>
@@ -18,7 +21,9 @@ export default {
   data() {
     return {
       beers: [],
-      selectedBeer: null
+      favouriteBeers: [],
+      selectedBeer: null,
+      favouriteBeer: null
     };
   },
   mounted(){
@@ -28,7 +33,12 @@ export default {
 
     eventBus.$on('beer-selected', (beer) => {
       this.selectedBeer = beer;
-    })
+    });
+    eventBus.$on("favourite-beer-added", (favouriteBeer) => {
+      if (!this.favouriteBeers.includes(favouriteBeer)) {
+        this.favouriteBeers = [...this.favouriteBeers, favouriteBeer];
+      }
+    });
   },
   components: {
     "beers-list": BeersList,
